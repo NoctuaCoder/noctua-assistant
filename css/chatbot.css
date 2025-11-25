@@ -152,8 +152,8 @@ body::before {
 /* Chat Widget */
 .chat-widget {
     position: fixed;
-    bottom: 100px;
-    right: 24px;
+    inset: 0;
+    margin: auto;
     width: 360px;
     height: 600px;
     background: var(--glass-bg);
