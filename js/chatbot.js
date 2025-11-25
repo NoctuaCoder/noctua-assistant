@@ -88,7 +88,7 @@ class NoctuaBot {
         avatar.className = 'message-avatar';
 
         if (sender === 'bot') {
-            avatar.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4C10 4 8.5 5 8.5 7.5C8.5 10 12 13 12 13C12 13 15.5 10 15.5 7.5C15.5 5 14 4 12 4Z"></path><path d="M10.5 7.5L10.5 8"></path><path d="M13.5 7.5L13.5 8"></path><path d="M8.5 7.5C6 9 5 14 7 18C9 21 15 21 17 18C19 14 18 9 15.5 7.5"></path><path d="M15.5 7.5C15.5 7.5 16 12 14 16"></path></svg>`;
+            avatar.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8C5 8 7 11 7 14"></path><path d="M22 8C19 8 17 11 17 14"></path><path d="M2 8L7 4L9 7"></path><path d="M22 8L17 4L15 7"></path><path d="M12 18C14.5 18 16 15 16 11C16 7 14 5 12 5C10 5 8 7 8 11C8 15 9.5 18 12 18Z"></path><path d="M10 10C10 10 10.5 11 11 11"></path><path d="M14 10C14 10 13.5 11 13 11"></path><path d="M9 7L8 4"></path><path d="M15 7L16 4"></path><path d="M10 18L9 22H15L14 18"></path></svg>`;
         } else {
             avatar.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`;
         }
