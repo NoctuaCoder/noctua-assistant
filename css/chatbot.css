@@ -221,14 +221,15 @@ body::before {
     transform-origin: center;
 }
 
-.welcome-owl svg {
-    filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.4));
+.owl-emoji {
+    font-size: 120px;
+    filter: drop-shadow(0 10px 30px rgba(102, 126, 234, 0.5));
     transition: transform 0.3s ease;
 }
 
-.welcome-owl:hover svg {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 40px rgba(102, 126, 234, 0.6));
+.welcome-owl:hover .owl-emoji {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 15px 40px rgba(102, 126, 234, 0.7));
 }
 
 .welcome-title {
@@ -311,12 +312,14 @@ body::before {
 
 /* Chat Header */
 .chat-header {
-    padding: var(--gap-md);
-    background: var(--cosmic-glow);
+    padding: var(--gap-md) var(--gap-lg);
     border-bottom: 1px solid var(--glass-border);
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .header-content {
@@ -537,6 +540,17 @@ body::before {
 }
 
 /* Project Cards */
+.proj.message-bubble {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: var(--gap-sm) var(--gap-md);
+    max-width: 100%;
+    word-wrap: break-word;
+    line-height: 1.6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .project-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
