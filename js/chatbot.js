@@ -6,7 +6,6 @@ class NoctuaBot {
         this.sendBtn = document.getElementById('sendBtn');
         this.typingIndicator = document.getElementById('typingIndicator');
         this.quickActions = document.querySelectorAll('.quick-btn');
-        this.themeToggle = document.getElementById('themeToggle');
         this.soundToggle = document.getElementById('soundToggle');
         this.minimizeBtn = document.getElementById('minimizeBtn');
         this.chatWidget = document.getElementById('chatWidget');
@@ -14,9 +13,6 @@ class NoctuaBot {
 
         // Initialize sound system
         this.soundSystem = new SoundSystem();
-
-        // Load saved theme
-        this.loadTheme();
 
         this.init();
     }
@@ -38,9 +34,6 @@ class NoctuaBot {
                 this.handleQuickAction(action);
             });
         });
-
-        // Theme toggle
-        this.themeToggle.addEventListener('click', () => this.toggleTheme());
 
         // Sound toggle
         if (this.soundToggle) {
@@ -229,24 +222,6 @@ class NoctuaBot {
         setTimeout(() => {
             this.chatBody.scrollTop = this.chatBody.scrollHeight;
         }, 100);
-    }
-
-    loadTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-mode');
-            this.themeToggle.textContent = '☀️';
-        } else {
-            this.themeToggle.textContent = '🌙';
-        }
-    }
-
-    toggleTheme() {
-        document.body.classList.toggle('light-mode');
-        const isLight = document.body.classList.contains('light-mode');
-        this.themeToggle.textContent = isLight ? '☀️' : '🌙';
-        localStorage.setItem('theme', isLight ? 'light' : 'dark');
-        this.soundSystem.click();
     }
 
     toggleSound() {

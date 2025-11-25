@@ -32,12 +32,11 @@ class ParticleBackground {
     }
 
     draw() {
-        const isLightMode = document.body.classList.contains('light-mode');
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Particle color based on theme
-        const particleColor = isLightMode ? 'rgba(0, 102, 255, 0.6)' : 'rgba(0, 255, 255, 0.8)';
-        const lineColor = isLightMode ? '0, 102, 255' : '0, 255, 255';
+        const particleColor = 'rgba(0, 255, 255, 0.8)';
+        const lineColor = '0, 255, 255';
 
         this.particles.forEach(particle => {
             this.ctx.fillStyle = particleColor;
