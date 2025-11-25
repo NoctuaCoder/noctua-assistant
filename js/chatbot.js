@@ -88,7 +88,7 @@ class NoctuaBot {
         avatar.className = 'message-avatar';
 
         if (sender === 'bot') {
-            avatar.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="8" cy="10" r="2"></circle><circle cx="16" cy="10" r="2"></circle><path d="M12 14l-2 2h4l-2-2z"></path><path d="M7 4l2 3"></path><path d="M17 4l-2 3"></path></svg>`;
+            avatar.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"></circle><path d="M3 21c0-3 2-6 9-6s9 3 9 6"></path><path d="M7 4l2 2"></path><path d="M17 4l-2 2"></path><circle cx="10" cy="8" r="1.5"></circle><circle cx="14" cy="8" r="1.5"></circle><path d="M12 10l-1 1.5h2z"></path></svg>`;
         } else {
             avatar.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`;
         }
