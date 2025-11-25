@@ -198,13 +198,13 @@ body::before {
 .bot-avatar {
     width: 48px;
     height: 48px;
-    background: var(--nebula-gradient);
+    background: rgba(0, 102, 255, 0.1);
+    border: 1px solid rgba(0, 102, 255, 0.3);
     border-radius: var(--radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    box-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 102, 255, 0.2);
     animation: pulse 2s ease-in-out infinite;
 }
 
@@ -476,15 +476,19 @@ body::before {
 }
 
 .quick-btn {
-    padding: 8px 12px;
+    padding: 8px 16px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-full);
     color: var(--text-primary);
-    font-size: 12px;
+    font-size: 13px;
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
 }
 
 .quick-btn:hover {
@@ -670,112 +674,113 @@ body::before {
         flex-wrap: nowrap;
     }
 }
+
 /* Bot Messages in Light Mode */
 body.light-mode .bot-message .message-avatar {
-        box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+    box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
 }
 
 body.light-mode .bot-message .message-bubble {
-        background: rgba(255, 255, 255, 0.9);
-        border: 1px solid rgba(0, 102, 255, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 102, 255, 0.2);
 }
 
 /* User Messages in Light Mode */
 body.light-mode .user-message .message-avatar {
-        background: rgba(0, 102, 255, 0.1);
-        border: 1px solid rgba(0, 102, 255, 0.2);
+    background: rgba(0, 102, 255, 0.1);
+    border: 1px solid rgba(0, 102, 255, 0.2);
 }
 
 body.light-mode .user-message .message-bubble {
-        background: var(--nebula-gradient);
-        color: white;
-        box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+    background: var(--nebula-gradient);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
 }
 
 /* Project Cards in Light Mode */
 body.light-mode .project-card {
-        background: rgba(255, 255, 255, 0.9);
-        border: 1px solid rgba(0, 102, 255, 0.15);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 102, 255, 0.15);
 }
 
 body.light-mode .project-card:hover {
-        background: rgba(255, 255, 255, 1);
-        box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
-        border-color: rgba(0, 102, 255, 0.3);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+    border-color: rgba(0, 102, 255, 0.3);
 }
 
 body.light-mode .tech-tag {
-        background: rgba(0, 102, 255, 0.1);
-        border: 1px solid rgba(0, 102, 255, 0.25);
+    background: rgba(0, 102, 255, 0.1);
+    border: 1px solid rgba(0, 102, 255, 0.25);
 }
 
 body.light-mode .project-link {
-        background: rgba(0, 102, 255, 0.05);
-        border: 1px solid rgba(0, 102, 255, 0.2);
+    background: rgba(0, 102, 255, 0.05);
+    border: 1px solid rgba(0, 102, 255, 0.2);
 }
 
 body.light-mode .project-link:hover {
-        background: var(--primary-blue);
-        color: white;
-        box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+    background: var(--primary-blue);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
 }
 
 /* Quick Actions in Light Mode */
 body.light-mode .quick-actions {
-        border-top: 1px solid rgba(0, 102, 255, 0.15);
+    border-top: 1px solid rgba(0, 102, 255, 0.15);
 }
 
 body.light-mode .quick-btn {
-        background: rgba(0, 102, 255, 0.05);
-        border: 1px solid rgba(0, 102, 255, 0.2);
+    background: rgba(0, 102, 255, 0.05);
+    border: 1px solid rgba(0, 102, 255, 0.2);
 }
 
 body.light-mode .quick-btn:hover {
-        background: var(--nebula-gradient);
-        color: white;
-        box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+    background: var(--nebula-gradient);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
 }
 
 /* Typing Indicator in Light Mode */
 body.light-mode .typing-indicator span {
-        background: var(--primary-blue);
+    background: var(--primary-blue);
 }
 
 /* Chat Input in Light Mode */
 body.light-mode .chat-input {
-        border-top: 1px solid rgba(0, 102, 255, 0.15);
+    border-top: 1px solid rgba(0, 102, 255, 0.15);
 }
 
 body.light-mode #messageInput {
-        background: rgba(255, 255, 255, 0.9);
-        border: 1px solid rgba(0, 102, 255, 0.2);
-        color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 102, 255, 0.2);
+    color: var(--text-primary);
 }
 
 body.light-mode #messageInput:focus {
-        border-color: var(--primary-blue);
-        box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.15);
-        background: rgba(255, 255, 255, 1);
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.15);
+    background: rgba(255, 255, 255, 1);
 }
 
 body.light-mode #messageInput::placeholder {
-        color: var(--text-muted);
+    color: var(--text-muted);
 }
 
 /* Send Button in Light Mode */
 body.light-mode .send-btn {
-        box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+    box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
 }
 
 body.light-mode .send-btn:hover {
-        box-shadow: 0 0 30px rgba(0, 102, 255, 0.4);
+    box-shadow: 0 0 30px rgba(0, 102, 255, 0.4);
 }
 
 /* Chat Toggle in Light Mode */
 body.light-mode .chat-toggle {
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 0 20pxrgba(0, 102, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 0 20pxrgba(0, 102, 255, 0.3);
 }
 
 body.light-mode .chat-toggle:hover {
-        box-shadow: 0 8px 32px rgba(0, 102, 255, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 102, 255, 0.4);
 }
