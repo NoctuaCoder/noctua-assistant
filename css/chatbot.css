@@ -218,10 +218,17 @@ body::before {
 .welcome-owl {
     margin-bottom: var(--gap-lg);
     animation: float 3s ease-in-out infinite;
+    transform-origin: center;
 }
 
 .welcome-owl svg {
-    filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
+    filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.4));
+    transition: transform 0.3s ease;
+}
+
+.welcome-owl:hover svg {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 40px rgba(102, 126, 234, 0.6));
 }
 
 .welcome-title {

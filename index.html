@@ -42,18 +42,53 @@
             <div class="welcome-content">
                 <!-- Animated Owl -->
                 <div class="welcome-owl">
-                    <svg width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="url(#icon-gradient)"
-                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M2 8C5 8 7 11 7 14"></path>
-                        <path d="M22 8C19 8 17 11 17 14"></path>
-                        <path d="M2 8L7 4L9 7"></path>
-                        <path d="M22 8L17 4L15 7"></path>
-                        <path d="M12 18C14.5 18 16 15 16 11C16 7 14 5 12 5C10 5 8 7 8 11C8 15 9.5 18 12 18Z"></path>
-                        <path d="M10 10C10 10 10.5 11 11 11"></path>
-                        <path d="M14 10C14 10 13.5 11 13 11"></path>
-                        <path d="M9 7L8 4"></path>
-                        <path d="M15 7L16 4"></path>
-                        <path d="M10 18L9 22H15L14 18"></path>
+                    <svg width="200" height="200" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Celestial Circle Background -->
+                        <circle cx="50" cy="50" r="45" fill="url(#owl-gradient)" opacity="0.9" />
+
+                        <!-- Stars -->
+                        <circle cx="25" cy="30" r="1" fill="white" opacity="0.8" />
+                        <circle cx="75" cy="35" r="1.5" fill="white" opacity="0.9" />
+                        <circle cx="30" cy="65" r="1" fill="white" opacity="0.7" />
+                        <circle cx="70" cy="70" r="1" fill="white" opacity="0.8" />
+                        <circle cx="85" cy="50" r="1.2" fill="white" opacity="0.9" />
+
+                        <!-- 4-pointed stars -->
+                        <path d="M35 25 L35.5 26.5 L37 27 L35.5 27.5 L35 29 L34.5 27.5 L33 27 L34.5 26.5 Z" fill="white"
+                            opacity="0.9" />
+                        <path d="M80 60 L80.5 61.5 L82 62 L80.5 62.5 L80 64 L79.5 62.5 L78 62 L79.5 61.5 Z" fill="white"
+                            opacity="0.8" />
+
+                        <!-- Barn Owl Body -->
+                        <path
+                            d="M50 75 C45 75 42 70 42 65 L42 55 C42 50 45 45 50 45 C55 45 58 50 58 55 L58 65 C58 70 55 75 50 75 Z"
+                            fill="#f5f5f5" stroke="url(#icon-gradient)" stroke-width="1.5" />
+
+                        <!-- Heart-shaped Face -->
+                        <path d="M50 30 C47 30 45 32 45 35 C45 38 47 42 50 45 C53 42 55 38 55 35 C55 32 53 30 50 30 Z"
+                            fill="#f5f5f5" stroke="url(#icon-gradient)" stroke-width="1.5" />
+
+                        <!-- Eyes -->
+                        <circle cx="47" cy="37" r="2" fill="url(#icon-gradient)" />
+                        <circle cx="53" cy="37" r="2" fill="url(#icon-gradient)" />
+                        <circle cx="47" cy="37" r="0.8" fill="white" />
+                        <circle cx="53" cy="37" r="0.8" fill="white" />
+
+                        <!-- Beak -->
+                        <path d="M50 40 L48 42 L52 42 Z" fill="url(#icon-gradient)" />
+
+                        <!-- Wings -->
+                        <path d="M42 55 C38 57 35 60 35 63" stroke="url(#icon-gradient)" stroke-width="1.5" fill="none"
+                            stroke-linecap="round" />
+                        <path d="M58 55 C62 57 65 60 65 63" stroke="url(#icon-gradient)" stroke-width="1.5" fill="none"
+                            stroke-linecap="round" />
+
+                        <defs>
+                            <linearGradient id="owl-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#667eea" />
+                                <stop offset="100%" stop-color="#764ba2" />
+                            </linearGradient>
+                        </defs>
                     </svg>
                 </div>
 
