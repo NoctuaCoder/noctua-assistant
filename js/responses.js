@@ -60,14 +60,36 @@ const responses = {
     help: {
         keywords: ['help', 'ajuda', 'command', 'what can'],
         responses: [
-            "I can help you with:<br>• <strong>Projects</strong> - See Alana's work<br>• <strong>Skills</strong> - View technical expertise<br>• <strong>Contact</strong> - Get in touch<br>• <strong>GitHub</strong> - Check GitHub profile<br><br>Just ask me anything or use the quick action buttons! 💡"
+            "I can help you with:<br>• <strong>Projects</strong> - See Alana's work<br>• <strong>Skills</strong> - View technical expertise<br>• <strong>Contact</strong> - Get in touch<br>• <strong>GitHub</strong> - Check GitHub profile<br><br>🎮 <strong>Easter Eggs:</strong><br>• Type 'owl' or 'coruja'<br>• Type 'color [name]' to change theme<br>• Type 'time' or 'hora'<br>• Type 'joke' or 'quote'<br><br>Just ask me anything or use the quick action buttons! 💡"
+        ]
+    },
+
+    joke: {
+        keywords: ['joke', 'piada', 'funny'],
+        responses: [
+            "Why do programmers prefer dark mode? 🌙<br>Because light attracts bugs! 🐛😄",
+            "How many programmers does it take to change a light bulb? 💡<br>None, that's a hardware problem! 😂",
+            "Why do Java developers wear glasses? 👓<br>Because they can't C#! 🤓",
+            "A SQL query walks into a bar, walks up to two tables and asks... 🍺<br>'Can I join you?' 😄"
+        ]
+    },
+
+    quote: {
+        keywords: ['quote', 'inspire', 'motivation', 'frase'],
+        responses: [
+            "💫 <em>\"Code is like humor. When you have to explain it, it's bad.\"</em><br>- Cory House",
+            "✨ <em>\"First, solve the problem. Then, write the code.\"</em><br>- John Johnson",
+            "🌟 <em>\"The best error message is the one that never shows up.\"</em><br>- Thomas Fuchs",
+            "⭐ <em>\"Simplicity is the soul of efficiency.\"</em><br>- Austin Freeman",
+            "💎 <em>\"Make it work, make it right, make it fast.\"</em><br>- Kent Beck"
         ]
     },
 
     default: {
         responses: [
             "Hmm, I'm not sure about that. Try asking about Alana's projects, skills, or experience! 🤔",
-            "Interesting question! I'm best at talking about Alana's portfolio. Want to see her projects? 🚀"
+            "Interesting question! I'm best at talking about Alana's portfolio. Want to see her projects? 🚀",
+            "I didn't quite understand that. Type 'help' to see what I can do! 💡"
         ]
     }
 };

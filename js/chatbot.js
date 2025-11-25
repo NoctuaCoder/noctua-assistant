@@ -7,9 +7,16 @@ class NoctuaBot {
         this.typingIndicator = document.getElementById('typingIndicator');
         this.quickActions = document.querySelectorAll('.quick-btn');
         this.themeToggle = document.getElementById('themeToggle');
+        this.soundToggle = document.getElementById('soundToggle');
         this.minimizeBtn = document.getElementById('minimizeBtn');
         this.chatWidget = document.getElementById('chatWidget');
         this.chatToggle = document.getElementById('chatToggle');
+
+        // Initialize sound system
+        this.soundSystem = new SoundSystem();
+
+        // Load saved theme
+        this.loadTheme();
 
         this.init();
     }
@@ -27,12 +34,18 @@ class NoctuaBot {
         this.quickActions.forEach(btn => {
             btn.addEventListener('click', () => {
                 const action = btn.dataset.action;
+                this.soundSystem.click();
                 this.handleQuickAction(action);
             });
         });
 
         // Theme toggle
         this.themeToggle.addEventListener('click', () => this.toggleTheme());
+
+        // Sound toggle
+        if (this.soundToggle) {
+            this.soundToggle.addEventListener('click', () => this.toggleSound());
+        }
 
         // Minimize/maximize
         this.minimizeBtn.addEventListener('click', () => this.toggleMinimize());
@@ -42,6 +55,15 @@ class NoctuaBot {
     sendMessage() {
         const message = this.messageInput.value.trim();
         if (!message) return;
+
+        // Play send sound
+        this.soundSystem.messageSent();
+
+        // Check for easter eggs first
+        if (this.handleEasterEgg(message)) {
+            this.messageInput.value = '';
+            return;
+        }
 
         // Add user message
         this.addMessage(message, 'user');
@@ -53,6 +75,7 @@ class NoctuaBot {
         // Get response
         setTimeout(() => {
             this.hideTyping();
+            this.soundSystem.messageReceived();
             const response = findResponse(message);
 
             if (response.action) {
@@ -208,14 +231,100 @@ class NoctuaBot {
         }, 100);
     }
 
+    loadTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            this.themeToggle.textContent = '☀️';
+        } else {
+            this.themeToggle.textContent = '🌙';
+        }
+    }
+
     toggleTheme() {
         document.body.classList.toggle('light-mode');
-        this.themeToggle.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+        const isLight = document.body.classList.contains('light-mode');
+        this.themeToggle.textContent = isLight ? '☀️' : '🌙';
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        this.soundSystem.click();
+    }
+
+    toggleSound() {
+        const enabled = this.soundSystem.toggle();
+        this.soundToggle.textContent = enabled ? '🔊' : '🔇';
+        if (enabled) {
+            this.soundSystem.success();
+        }
     }
 
     toggleMinimize() {
         this.chatWidget.classList.toggle('hidden');
         this.chatToggle.classList.toggle('hidden');
+        this.soundSystem.click();
+    }
+
+    handleEasterEgg(message) {
+        const lower = message.toLowerCase();
+
+        // Owl animation
+        if (lower.includes('owl') || lower.includes('coruja')) {
+            this.triggerOwlAnimation();
+            this.addMessage('🦉 <strong>Hoot hoot!</strong> The owl awakens! ✨', 'bot');
+            this.soundSystem.notification();
+            return true;
+        }
+
+        // Color theme change
+        if (lower.startsWith('color ') || lower.startsWith('cor ')) {
+            const color = lower.split(' ')[1];
+            this.changeAccentColor(color);
+            return true;
+        }
+
+        // Time
+        if (lower.includes('time') || lower.includes('hora')) {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            this.addMessage(`🕐 Current time: <strong>${timeStr}</strong>`, 'bot');
+            return true;
+        }
+
+        return false;
+    }
+
+    triggerOwlAnimation() {
+        const avatar = document.querySelector('.bot-avatar');
+        avatar.style.animation = 'none';
+        setTimeout(() => {
+            avatar.style.animation = 'pulse 0.5s ease-in-out 3';
+        }, 10);
+    }
+
+    changeAccentColor(color) {
+        const colorMap = {
+            'blue': '#0066ff',
+            'azul': '#0066ff',
+            'purple': '#8b5cf6',
+            'roxo': '#8b5cf6',
+            'pink': '#ec4899',
+            'rosa': '#ec4899',
+            'green': '#10b981',
+            'verde': '#10b981',
+            'cyan': '#06b6d4',
+            'ciano': '#06b6d4'
+        };
+
+        if (colorMap[color]) {
+            document.documentElement.style.setProperty('--primary-blue', colorMap[color]);
+            this.addMessage(`✨ Accent color changed to <strong>${color}</strong>!`, 'bot');
+            this.soundSystem.success();
+        } else {
+            this.addMessage(`❌ Color "${color}" not found. Try: blue, purple, pink, green, cyan`, 'bot');
+        }
     }
 }
 

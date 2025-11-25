@@ -21,6 +21,13 @@ const portfolioData = {
             github: "https://github.com/NoctuaCoder/noctua-command-center"
         },
         {
+            name: "NoctuaBot Assistant",
+            description: "Interactive AI portfolio chatbot with easter eggs, sound effects, and day/night themes",
+            tech: ["JavaScript", "Web Audio API", "LocalStorage", "CSS"],
+            demo: "https://noctuacoder.github.io/noctua-assistant/",
+            github: "https://github.com/NoctuaCoder/noctua-assistant"
+        },
+        {
             name: "Matrix Owl Terminal",
             description: "Interactive cyberpunk terminal with command system, particle effects, and system monitor HUD",
             tech: ["JavaScript", "Canvas", "Web Audio", "CSS"],

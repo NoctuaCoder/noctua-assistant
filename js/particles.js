@@ -32,10 +32,15 @@ class ParticleBackground {
     }
 
     draw() {
+        const isLightMode = document.body.classList.contains('light-mode');
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        // Particle color based on theme
+        const particleColor = isLightMode ? 'rgba(0, 102, 255, 0.6)' : 'rgba(0, 255, 255, 0.8)';
+        const lineColor = isLightMode ? '0, 102, 255' : '0, 255, 255';
+
         this.particles.forEach(particle => {
-            this.ctx.fillStyle = '#00FFFF';
+            this.ctx.fillStyle = particleColor;
             this.ctx.beginPath();
             this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
             this.ctx.fill();
@@ -50,7 +55,7 @@ class ParticleBackground {
 
                 if (distance < 100) {
                     const opacity = 1 - (distance / 100);
-                    this.ctx.strokeStyle = `rgba(0, 255, 255, ${opacity * 0.2})`;
+                    this.ctx.strokeStyle = `rgba(${lineColor}, ${opacity * 0.2})`;
                     this.ctx.lineWidth = 0.5;
                     this.ctx.beginPath();
                     this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
