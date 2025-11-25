@@ -170,8 +170,6 @@ body::before {
     overflow: hidden;
 }
 
-animation: slideUp 0.5s ease;
-
 /* Inner Glow Effect */
 .chat-widget::before {
     content: '';
