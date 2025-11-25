@@ -493,6 +493,20 @@ body::before {
     justify-content: center;
     font-size: 18px;
     flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.bot-avatar-small {
+    font-size: 20px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.user-avatar-small {
+    font-size: 18px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+    border-color: rgba(102, 126, 234, 0.4);
 }
 
 .bot-message .message-avatar {
@@ -664,8 +678,9 @@ body::before {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-md);
-    color: var(--text-primary);
-    font-size: 13px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
@@ -673,10 +688,12 @@ body::before {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    font-weight: 500;
     aspect-ratio: 1.4;
-    /* Rectangular/Square-ish */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
+
+/* Rectangular/Square-ish */
+
 
 .quick-btn svg {
     width: 24px;
