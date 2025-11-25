@@ -13,7 +13,17 @@
 
 </div>
 
----
+<br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/>
 
 ## 🌟 Overview
 
@@ -51,7 +61,157 @@
 Unlike traditional CV chatbots, Noctua Assistant offers:
 
 | Feature | Traditional CV Bot | Noctua Assistant |
-|---------|-------------------|------------------|
+|<br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/><br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/><br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/>|<br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/><br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/><br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/><br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/><br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/><br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/>-|<br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/><br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/><br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/><br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/><br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/><br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/>|
 | **Visual Design** | ❌ Plain text | ✅ Glassmorphism UI |
 | **Interactivity** | ❌ Static | ✅ Animated & responsive |
 | **Project Demos** | ❌ Links only | ✅ Interactive cards |
@@ -173,7 +333,17 @@ MIT License - feel free to use this project for your own portfolio!
 - GitHub: [@NoctuaCoder](https://github.com/NoctuaCoder)
 - Portfolio: [noctuacoder.github.io](https://noctuacoder.github.io/NoctuaCoder/portfolio.html)
 
----
+<br/>
+
+<div align="center">
+<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
+    ✦       ✦       ✦       ✦       ✦       ✦       ✦
+</pre>
+</div>
+
+<br/>
 
 <div align="center">
 
