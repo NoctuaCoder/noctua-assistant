@@ -225,7 +225,11 @@ body::before {
 .bot-name {
     font-size: 18px;
     font-weight: 700;
-    color: var(--text-white);
+    background: var(--nebula-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
     margin-bottom: var(--gap-xs);
 }
 
