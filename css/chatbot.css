@@ -620,3 +620,112 @@ body::before {
         flex-wrap: nowrap;
     }
 }
+/* Bot Messages in Light Mode */
+body.light-mode .bot-message .message-avatar {
+        box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+}
+
+body.light-mode .bot-message .message-bubble {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 102, 255, 0.2);
+}
+
+/* User Messages in Light Mode */
+body.light-mode .user-message .message-avatar {
+        background: rgba(0, 102, 255, 0.1);
+        border: 1px solid rgba(0, 102, 255, 0.2);
+}
+
+body.light-mode .user-message .message-bubble {
+        background: var(--nebula-gradient);
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+}
+
+/* Project Cards in Light Mode */
+body.light-mode .project-card {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 102, 255, 0.15);
+}
+
+body.light-mode .project-card:hover {
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+        border-color: rgba(0, 102, 255, 0.3);
+}
+
+body.light-mode .tech-tag {
+        background: rgba(0, 102, 255, 0.1);
+        border: 1px solid rgba(0, 102, 255, 0.25);
+}
+
+body.light-mode .project-link {
+        background: rgba(0, 102, 255, 0.05);
+        border: 1px solid rgba(0, 102, 255, 0.2);
+}
+
+body.light-mode .project-link:hover {
+        background: var(--primary-blue);
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+}
+
+/* Quick Actions in Light Mode */
+body.light-mode .quick-actions {
+        border-top: 1px solid rgba(0, 102, 255, 0.15);
+}
+
+body.light-mode .quick-btn {
+        background: rgba(0, 102, 255, 0.05);
+        border: 1px solid rgba(0, 102, 255, 0.2);
+}
+
+body.light-mode .quick-btn:hover {
+        background: var(--nebula-gradient);
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+}
+
+/* Typing Indicator in Light Mode */
+body.light-mode .typing-indicator span {
+        background: var(--primary-blue);
+}
+
+/* Chat Input in Light Mode */
+body.light-mode .chat-input {
+        border-top: 1px solid rgba(0, 102, 255, 0.15);
+}
+
+body.light-mode #messageInput {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 102, 255, 0.2);
+        color: var(--text-primary);
+}
+
+body.light-mode #messageInput:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.15);
+        background: rgba(255, 255, 255, 1);
+}
+
+body.light-mode #messageInput::placeholder {
+        color: var(--text-muted);
+}
+
+/* Send Button in Light Mode */
+body.light-mode .send-btn {
+        box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+}
+
+body.light-mode .send-btn:hover {
+        box-shadow: 0 0 30px rgba(0, 102, 255, 0.4);
+}
+
+/* Chat Toggle in Light Mode */
+body.light-mode .chat-toggle {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 0 20pxrgba(0, 102, 255, 0.3);
+}
+
+body.light-mode .chat-toggle:hover {
+        box-shadow: 0 8px 32px rgba(0, 102, 255, 0.4);
+}
