@@ -37,6 +37,42 @@
             </defs>
         </svg>
 
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="welcome-content">
+                <!-- Animated Owl -->
+                <div class="welcome-owl">
+                    <svg width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="url(#icon-gradient)"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 8C5 8 7 11 7 14"></path>
+                        <path d="M22 8C19 8 17 11 17 14"></path>
+                        <path d="M2 8L7 4L9 7"></path>
+                        <path d="M22 8L17 4L15 7"></path>
+                        <path d="M12 18C14.5 18 16 15 16 11C16 7 14 5 12 5C10 5 8 7 8 11C8 15 9.5 18 12 18Z"></path>
+                        <path d="M10 10C10 10 10.5 11 11 11"></path>
+                        <path d="M14 10C14 10 13.5 11 13 11"></path>
+                        <path d="M9 7L8 4"></path>
+                        <path d="M15 7L16 4"></path>
+                        <path d="M10 18L9 22H15L14 18"></path>
+                    </svg>
+                </div>
+
+                <!-- Welcome Text -->
+                <h1 class="welcome-title">How may I help you today?</h1>
+                <p class="welcome-subtitle">I'm NoctuaBot, your celestial portfolio assistant</p>
+
+                <!-- Get Started Button -->
+                <button class="get-started-btn" id="getStartedBtn">
+                    <span>Get Started</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
         <!-- Chat Widget -->
         <div class="chat-widget" id="chatWidget">
             <!-- Chat Header -->
@@ -202,6 +238,7 @@
     <script src="js/sounds.js"></script>
     <script src="js/portfolio-data.js"></script>
     <script src="js/responses.js"></script>
+    <script src="js/welcome.js"></script>
     <script src="js/chatbot.js"></script>
 </body>
 
