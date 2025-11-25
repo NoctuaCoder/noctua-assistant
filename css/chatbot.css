@@ -154,22 +154,23 @@ body::before {
     position: fixed;
     inset: 0;
     margin: auto;
-    width: 360px;
-    height: 600px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
+    width: 380px;
+    height: 650px;
+    background: linear-gradient(135deg, rgba(10, 10, 30, 0.95) 0%, rgba(20, 20, 50, 0.95) 100%);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 32px;
     /* Softer corners */
     display: flex;
     flex-direction: column;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 1000;
     overflow: hidden;
-    animation: slideUp 0.5s ease;
 }
+
+animation: slideUp 0.5s ease;
 
 /* Inner Glow Effect */
 .chat-widget::before {
@@ -310,16 +311,28 @@ body::before {
     }
 }
 
+@keyframes messageSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 /* Chat Header */
 .chat-header {
-    padding: var(--gap-md) var(--gap-lg);
-    border-bottom: 1px solid var(--glass-border);
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.02);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
 }
 
 .header-content {
@@ -425,28 +438,40 @@ body::before {
 .chat-body {
     flex: 1;
     overflow-y: auto;
-    padding: var(--gap-md);
+    padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: var(--gap-md);
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-blue) transparent;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+    scroll-behavior: smooth;
 }
 
 .chat-body::-webkit-scrollbar {
     width: 6px;
 }
 
+.chat-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+}
+
 .chat-body::-webkit-scrollbar-thumb {
-    background: var(--primary-blue);
-    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.chat-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
 /* Messages */
 .message {
     display: flex;
-    gap: var(--gap-sm);
-    animation: fadeIn 0.3s ease;
+    gap: 12px;
+    animation: messageSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+    animation-fill-mode: forwards;
 }
 
 @keyframes fadeIn {
@@ -507,11 +532,16 @@ body::before {
 }
 
 .user-message .message-bubble {
-    background: var(--nebula-gradient);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     font-weight: 500;
     margin-left: auto;
-    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.user-message .message-bubble:hover {
+    background: linear-gradient(135deg, #7a8ef0 0%, #8a5bb8 100%);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .message-bubble p {
@@ -541,14 +571,21 @@ body::before {
 
 /* Project Cards */
 .proj.message-bubble {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-md);
-    padding: var(--gap-sm) var(--gap-md);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    padding: 12px 16px;
     max-width: 100%;
     word-wrap: break-word;
-    line-height: 1.6;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    line-height: 1.7;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.message-bubble:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .project-card {
