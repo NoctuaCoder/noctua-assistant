@@ -1,26 +1,38 @@
-/* NoctuaBot - Portfolio Chatbot Styles */
+/* NoctuaBot - Celestial Theme v3.0 */
 
 :root {
-    /* Colors - Dark Mode */
-    --bg-primary: #0A0E27;
-    --bg-secondary: #1A1F3A;
-    --accent-primary: #00FFFF;
-    --accent-secondary: #00BFFF;
-    --accent-purple: #BD00FF;
-    --text-primary: #FFFFFF;
-    --text-secondary: #A0B0C0;
-    --text-muted: #6B7280;
+    /* Dark Space Backgrounds */
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #13131a;
+    --bg-darker: #0d0d12;
 
-    /* Glass */
-    --glass-bg: rgba(255, 255, 255, 0.05);
+    /* Cosmic Colors */
+    --cosmic-purple: #9333ea;
+    --cosmic-pink: #ec4899;
+    --cosmic-blue: #3b82f6;
+    --cosmic-cyan: #06b6d4;
+
+    /* Gradients */
+    --nebula-gradient: linear-gradient(135deg, #9333ea 0%, #ec4899 50%, #3b82f6 100%);
+    --cosmic-glow: linear-gradient(135deg, rgba(147, 51, 234, 0.3), rgba(236, 72, 153, 0.3));
+
+    /* Text Colors */
+    --text-primary: #e5e7eb;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    --text-white: #ffffff;
+
+    /* Glassmorphism Dark */
+    --glass-bg: rgba(30, 30, 40, 0.7);
     --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-hover: rgba(255, 255, 255, 0.08);
+    --glass-hover: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 
-    /* Shadows */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
-    --shadow-glow: 0 0 20px rgba(0, 255, 255, 0.3);
+    /* Shadows & Glow */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 20px rgba(147, 51, 234, 0.4);
 
     /* Spacing */
     --gap-xs: 4px;
@@ -36,19 +48,6 @@
     --radius-full: 9999px;
 }
 
-/* Light Mode */
-body.light-mode {
-    --bg-primary: #F5F5F5;
-    --bg-secondary: #FFFFFF;
-    --accent-primary: #0066FF;
-    --accent-secondary: #0052CC;
-    --text-primary: #1F2937;
-    --text-secondary: #4B5563;
-    --text-muted: #9CA3AF;
-    --glass-bg: rgba(255, 255, 255, 0.8);
-    --glass-border: rgba(0, 0, 0, 0.1);
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -61,6 +60,20 @@ body {
     color: var(--text-primary);
     overflow: hidden;
     transition: background 0.3s ease;
+    position: relative;
+}
+
+/* Cosmic Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at top, #1a1a2e 0%, #0a0a0f 50%);
+    z-index: 0;
+    pointer-events: none;
 }
 
 /* Particle Background */
@@ -70,7 +83,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
+    z-index: 1;
 }
 
 .container {
@@ -117,7 +130,7 @@ body {
 /* Chat Header */
 .chat-header {
     padding: var(--gap-md);
-    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(189, 0, 255, 0.1));
+    background: var(--cosmic-glow);
     border-bottom: 1px solid var(--glass-border);
     display: flex;
     justify-content: space-between;
@@ -133,13 +146,13 @@ body {
 .bot-avatar {
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
+    background: var(--nebula-gradient);
     border-radius: var(--radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
     animation: pulse 2s ease-in-out infinite;
 }
 
@@ -148,19 +161,19 @@ body {
     0%,
     100% {
         transform: scale(1);
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
     }
 
     50% {
         transform: scale(1.05);
-        box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        box-shadow: 0 0 30px rgba(147, 51, 234, 0.7);
     }
 }
 
 .bot-name {
     font-size: 18px;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--text-white);
     margin-bottom: var(--gap-xs);
 }
 
@@ -175,8 +188,9 @@ body {
 .status-dot {
     width: 8px;
     height: 8px;
-    background: #00FF00;
+    background: #10b981;
     border-radius: var(--radius-full);
+    box-shadow: 0 0 8px #10b981;
     animation: blink 2s ease-in-out infinite;
 }
 
@@ -200,7 +214,7 @@ body {
 .action-btn {
     width: 32px;
     height: 32px;
-    background: var(--glass-bg);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-sm);
     color: var(--text-primary);
@@ -213,8 +227,9 @@ body {
 }
 
 .action-btn:hover {
-    background: var(--glass-hover);
+    background: rgba(147, 51, 234, 0.2);
     transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(147, 51, 234, 0.4);
 }
 
 /* Chat Body */
@@ -226,7 +241,7 @@ body {
     flex-direction: column;
     gap: var(--gap-md);
     scrollbar-width: thin;
-    scrollbar-color: var(--accent-primary) transparent;
+    scrollbar-color: var(--cosmic-purple) transparent;
 }
 
 .chat-body::-webkit-scrollbar {
@@ -234,7 +249,7 @@ body {
 }
 
 .chat-body::-webkit-scrollbar-thumb {
-    background: var(--accent-primary);
+    background: var(--cosmic-purple);
     border-radius: 3px;
 }
 
@@ -269,8 +284,8 @@ body {
 }
 
 .bot-message .message-avatar {
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    background: var(--nebula-gradient);
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.5);
 }
 
 .user-message {
@@ -278,7 +293,7 @@ body {
 }
 
 .user-message .message-avatar {
-    background: var(--glass-bg);
+    background: rgba(255, 255, 255, 0.1);
     border: 1px solid var(--glass-border);
 }
 
@@ -303,10 +318,11 @@ body {
 }
 
 .user-message .message-bubble {
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    color: #000;
+    background: var(--nebula-gradient);
+    color: white;
     font-weight: 500;
     margin-left: auto;
+    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.4);
 }
 
 .message-bubble p {
@@ -318,11 +334,11 @@ body {
 }
 
 .message-bubble strong {
-    color: var(--accent-primary);
+    color: var(--cosmic-purple);
 }
 
 .user-message .message-bubble strong {
-    color: #000;
+    color: white;
 }
 
 .message-time {
@@ -347,13 +363,14 @@ body {
 .project-card:hover {
     background: var(--glass-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+    border-color: rgba(147, 51, 234, 0.3);
 }
 
 .project-title {
     font-size: 16px;
     font-weight: 700;
-    color: var(--accent-primary);
+    color: var(--cosmic-purple);
     margin-bottom: var(--gap-sm);
 }
 
@@ -366,11 +383,11 @@ body {
 
 .tech-tag {
     padding: 4px 8px;
-    background: rgba(0, 255, 255, 0.1);
-    border: 1px solid rgba(0, 255, 255, 0.3);
+    background: rgba(147, 51, 234, 0.15);
+    border: 1px solid rgba(147, 51, 234, 0.3);
     border-radius: var(--radius-sm);
     font-size: 11px;
-    color: var(--accent-primary);
+    color: var(--cosmic-purple);
     font-family: 'JetBrains Mono', monospace;
 }
 
@@ -381,7 +398,7 @@ body {
 
 .project-link {
     padding: 6px 12px;
-    background: var(--glass-bg);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-sm);
     color: var(--text-primary);
@@ -391,9 +408,10 @@ body {
 }
 
 .project-link:hover {
-    background: var(--accent-primary);
-    color: #000;
+    background: var(--cosmic-purple);
+    color: white;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.4);
 }
 
 /* Quick Actions */
@@ -407,7 +425,7 @@ body {
 
 .quick-btn {
     padding: 8px 12px;
-    background: var(--glass-bg);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-full);
     color: var(--text-primary);
@@ -418,10 +436,11 @@ body {
 }
 
 .quick-btn:hover {
-    background: var(--accent-primary);
-    color: #000;
+    background: var(--nebula-gradient);
+    color: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.4);
+    border-color: transparent;
 }
 
 /* Typing Indicator */
@@ -435,7 +454,7 @@ body {
 .typing-indicator span {
     width: 8px;
     height: 8px;
-    background: var(--accent-primary);
+    background: var(--cosmic-purple);
     border-radius: var(--radius-full);
     animation: typing 1.4s ease-in-out infinite;
 }
@@ -481,7 +500,7 @@ body {
 #messageInput {
     flex: 1;
     padding: 12px 16px;
-    background: var(--glass-bg);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-full);
     color: var(--text-primary);
@@ -492,8 +511,9 @@ body {
 }
 
 #messageInput:focus {
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.1);
+    border-color: var(--cosmic-purple);
+    box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.2);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 #messageInput::placeholder {
@@ -503,21 +523,21 @@ body {
 .send-btn {
     width: 44px;
     height: 44px;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    background: var(--nebula-gradient);
     border: none;
     border-radius: var(--radius-full);
-    color: #000;
+    color: white;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(147, 51, 234, 0.4);
 }
 
 .send-btn:hover {
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 30px rgba(147, 51, 234, 0.6);
 }
 
 .send-btn:active {
@@ -531,10 +551,10 @@ body {
     right: 24px;
     width: 64px;
     height: 64px;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
+    background: var(--nebula-gradient);
     border: none;
     border-radius: var(--radius-full);
-    color: #000;
+    color: white;
     font-size: 28px;
     cursor: pointer;
     box-shadow: var(--shadow-lg), var(--shadow-glow);
@@ -556,6 +576,7 @@ body {
 
 .chat-toggle:hover {
     transform: scale(1.1);
+    box-shadow: 0 8px 32px rgba(147, 51, 234, 0.6);
 }
 
 .notification-badge {
@@ -564,7 +585,7 @@ body {
     right: -4px;
     width: 24px;
     height: 24px;
-    background: #FF0000;
+    background: #ef4444;
     border-radius: var(--radius-full);
     color: #FFF;
     font-size: 12px;
@@ -572,6 +593,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 0 8px #ef4444;
 }
 
 .hidden {
