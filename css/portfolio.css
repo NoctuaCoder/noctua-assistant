@@ -197,6 +197,10 @@ a {
     transition: all var(--transition-fast);
 }
 
+.menu-container {
+    display: none;
+}
+
 .sidebar-toggle:hover {
     color: var(--text-primary);
     background: var(--glass-hover);
@@ -851,6 +855,10 @@ a {
     }
 
     .sidebar-toggle {
+        display: block;
+    }
+
+    .menu-container {
         display: block;
     }
 
