@@ -64,11 +64,39 @@ body {
     cursor: pointer;
     padding: 8px;
     border-radius: 12px;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 1px;
+    background: linear-gradient(135deg, #ff006e, #8338ec, #06b6d4);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .menu-btn:hover {
     background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(255, 0, 110, 0.3);
+}
+
+.menu-btn:hover::before {
+    opacity: 1;
+}
+
+.menu-btn:active {
+    transform: scale(0.95);
 }
 
 .premium-btn {
