@@ -1,318 +1,576 @@
-// NoctuaBot - Main Chatbot Logic
-class NoctuaBot {
+/* ========================================
+   MAIN CHATBOT LOGIC
+   Handles UI interactions and message flow
+   ======================================== */
+
+class PortfolioChatbot {
     constructor() {
-        this.chatBody = document.getElementById('chatBody');
+        this.messagesContainer = document.getElementById('messagesContainer');
         this.messageInput = document.getElementById('messageInput');
         this.sendBtn = document.getElementById('sendBtn');
-        this.typingIndicator = document.getElementById('typingIndicator');
-        this.quickActions = document.querySelectorAll('.quick-btn');
-        this.soundToggle = document.getElementById('soundToggle');
-        this.minimizeBtn = document.getElementById('minimizeBtn');
-        this.chatWidget = document.getElementById('chatWidget');
-        this.chatToggle = document.getElementById('chatToggle');
+        this.micBtn = document.getElementById('micBtn');
+        this.heroSection = document.getElementById('heroSection');
+        this.suggestionChips = document.getElementById('suggestionChips');
+        this.loadingIndicator = document.getElementById('loadingIndicator');
 
-        // Initialize sound system
-        this.soundSystem = new SoundSystem();
+        this.isFirstMessage = true;
+        this.isRecording = false;
 
         this.init();
     }
 
     init() {
-        // Send message on button click
-        this.sendBtn.addEventListener('click', () => this.sendMessage());
-
-        // Send message on Enter key
+        // Event listeners
+        this.sendBtn.addEventListener('click', () => this.handleSend());
         this.messageInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') this.sendMessage();
+            if (e.key === 'Enter') this.handleSend();
         });
+        this.micBtn.addEventListener('click', () => this.toggleVoiceInput());
 
-        // Quick actions
-        this.quickActions.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const action = btn.dataset.action;
-                this.soundSystem.click();
-                this.handleQuickAction(action);
+        // Quick action chips
+        document.querySelectorAll('.action-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const message = chip.dataset.message;
+                this.messageInput.value = message;
+                this.handleSend();
             });
         });
 
-        // Sound toggle
-        if (this.soundToggle) {
-            this.soundToggle.addEventListener('click', () => this.toggleSound());
-        }
+        // Navigation items
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const command = item.dataset.command;
+                this.messageInput.value = command;
+                this.handleSend();
 
-        // Minimize/maximize
-        this.minimizeBtn.addEventListener('click', () => this.toggleMinimize());
-        this.chatToggle.addEventListener('click', () => this.toggleMinimize());
+                // Update active state
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        // Download CV button
+        document.getElementById('downloadCV')?.addEventListener('click', () => {
+            this.addBotMessage("I don't have a downloadable CV yet, but you can view my portfolio and GitHub to see all my work! 📄");
+        });
+
+        // Sidebar toggle (mobile)
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        sidebarToggle?.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // Custom cursor
+        this.initCustomCursor();
+
+        // Initialize particles
+        if (typeof initParticles === 'function') {
+            initParticles();
+        }
     }
 
-    sendMessage() {
+    initCustomCursor() {
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        if (!cursorDot || !cursorOutline) return;
+
+        let mouseX = 0, mouseY = 0;
+        let outlineX = 0, outlineY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+
+        // Smooth follow for outline
+        const animateOutline = () => {
+            outlineX += (mouseX - outlineX) * 0.2;
+            outlineY += (mouseY - outlineY) * 0.2;
+
+            cursorOutline.style.left = outlineX + 'px';
+            cursorOutline.style.top = outlineY + 'px';
+
+            requestAnimationFrame(animateOutline);
+        };
+        animateOutline();
+
+        // Cursor interactions
+        document.querySelectorAll('button, a, input').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorDot.style.transform = 'scale(1.5)';
+                cursorOutline.style.transform = 'scale(1.5)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorDot.style.transform = 'scale(1)';
+                cursorOutline.style.transform = 'scale(1)';
+            });
+        });
+    }
+
+    async handleSend() {
         const message = this.messageInput.value.trim();
         if (!message) return;
 
-        // Play send sound
-        this.soundSystem.messageSent();
-
-        // Check for easter eggs first
-        if (this.handleEasterEgg(message)) {
-            this.messageInput.value = '';
-            return;
+        // Hide hero on first message
+        if (this.isFirstMessage) {
+            this.heroSection.style.display = 'none';
+            this.isFirstMessage = false;
         }
 
         // Add user message
-        this.addMessage(message, 'user');
+        this.addUserMessage(message);
         this.messageInput.value = '';
 
-        // Show typing indicator
-        this.showTyping();
+        // Show loading
+        this.showLoading();
 
         // Get response
-        setTimeout(() => {
-            this.hideTyping();
-            this.soundSystem.messageReceived();
-            const response = findResponse(message);
+        const response = await responseSystem.generateResponse(message);
 
-            if (response.action) {
-                this.handleAction(response.action);
-            } else if (response.text) {
-                this.addMessage(response.text, 'bot');
-            }
-        }, 1000 + Math.random() * 1000);
+        // Hide loading
+        this.hideLoading();
+
+        // Display response
+        await this.displayResponse(response);
+
+        // Scroll to bottom
+        this.scrollToBottom();
     }
 
-    addMessage(text, sender) {
+    addUserMessage(text) {
+        const messageEl = this.createMessageElement(text, 'user');
+        this.messagesContainer.appendChild(messageEl);
+    }
+
+    addBotMessage(text, isHTML = false) {
+        const messageEl = this.createMessageElement(text, 'bot', isHTML);
+        this.messagesContainer.appendChild(messageEl);
+        return messageEl;
+    }
+
+    createMessageElement(text, type, isHTML = false) {
         const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${sender}-message`;
+        messageDiv.className = `message ${type}`;
 
         const avatar = document.createElement('div');
         avatar.className = 'message-avatar';
-
-        if (sender === 'bot') {
-            avatar.className += ' bot-avatar-small';
-            avatar.textContent = '🦉';
+        if (type === 'bot') {
+            avatar.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6 L15 12 L12 18 L9 12 Z" fill="white"/>
+                </svg>
+            `;
         } else {
-            avatar.className += ' user-avatar-small';
-            avatar.textContent = '👤';
+            avatar.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            `;
         }
 
-        const content = document.createElement('div');
-        content.className = 'message-content';
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'message-content';
 
         const bubble = document.createElement('div');
         bubble.className = 'message-bubble';
-        bubble.innerHTML = text;
 
-        const time = document.createElement('span');
+        if (isHTML) {
+            bubble.innerHTML = text;
+        } else {
+            bubble.textContent = text;
+        }
+
+        const time = document.createElement('div');
         time.className = 'message-time';
         time.textContent = new Date().toLocaleTimeString('en-US', {
             hour: '2-digit',
             minute: '2-digit'
         });
 
-        content.appendChild(bubble);
-        content.appendChild(time);
+        contentDiv.appendChild(bubble);
+        contentDiv.appendChild(time);
         messageDiv.appendChild(avatar);
-        messageDiv.appendChild(content);
+        messageDiv.appendChild(contentDiv);
 
-        this.chatBody.appendChild(messageDiv);
-        this.scrollToBottom();
+        return messageDiv;
     }
 
-    handleQuickAction(action) {
-        this.handleAction(action);
-    }
+    async displayResponse(response) {
+        if (!response) return;
 
-    handleAction(action) {
-        switch (action) {
+        // Handle different response types
+        switch (response.type) {
             case 'projects':
-            case 'showProjects':
-                this.showProjects();
+                await this.displayProjects();
+                break;
+            case 'project-detail':
+                this.displayProjectDetail(response.project);
+                break;
+            case 'github-projects':
+                this.displayGitHubProjects(response.projects, response.text);
                 break;
             case 'skills':
-            case 'showSkills':
-                this.showSkills();
+                this.displaySkills();
+                break;
+            case 'github-stats':
+                await this.displayGitHubStats();
                 break;
             case 'contact':
-            case 'showContact':
-                this.showContact();
+                this.displayContact();
                 break;
-            case 'github':
-            case 'showGitHub':
-                this.showGitHub();
-                break;
+            default:
+                this.addBotMessage(response.text);
+        }
+
+        // Show suggestions
+        if (response.suggestions) {
+            this.showSuggestions(response.suggestions);
         }
     }
 
-    showProjects() {
-        let html = `<p><strong>Here are Alana's featured projects:</strong></p>`;
+    async displayProjects() {
+        this.addBotMessage("Here are my featured projects:");
 
-        portfolioData.projects.forEach(project => {
-            html += `
+        for (const project of portfolioData.projects) {
+            const projectHTML = `
                 <div class="project-card">
-                    <div class="project-title">${project.name}</div>
-                    <p style="font-size: 13px; margin-bottom: 12px;">${project.description}</p>
+                    <h4>${project.name}</h4>
+                    <p>${project.description}</p>
                     <div class="project-tech">
                         ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
                     </div>
+                    ${project.highlights ? `
+                        <p style="font-size: 0.875rem; color: var(--text-tertiary); margin-bottom: var(--spacing-md);">
+                            ✨ ${project.highlights.join(' • ')}
+                        </p>
+                    ` : ''}
                     <div class="project-links">
-                        ${project.demo ? `<a href="${project.demo}" target="_blank" class="project-link">🔗 Demo</a>` : ''}
-                        <a href="${project.github}" target="_blank" class="project-link">💻 Code</a>
+                        ${project.demo ? `
+                            <a href="${project.demo}" target="_blank" class="project-link">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                                Live Demo
+                            </a>
+                        ` : ''}
+                        <a href="${project.github}" target="_blank" class="project-link">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                            GitHub
+                        </a>
                     </div>
                 </div>
             `;
-        });
 
-        this.addMessage(html, 'bot');
+            this.addBotMessage(projectHTML, true);
+            await this.delay(200); // Stagger the display
+        }
     }
 
-    showSkills() {
-        let html = `<p><strong>Alana's Technical Skills:</strong></p>`;
-
-        for (const [skill, level] of Object.entries(portfolioData.skills)) {
-            const bars = '█'.repeat(Math.floor(level / 10)) + '░'.repeat(10 - Math.floor(level / 10));
-            html += `
-                <div style="margin: 8px 0; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                        <span>${skill}</span>
-                        <span style="color: var(--accent-primary);">${level}%</span>
-                    </div>
-                    <div style="color: var(--accent-primary);">${bars}</div>
+    displayProjectDetail(project) {
+        const projectHTML = `
+            <div class="project-card">
+                <h4>${project.name}</h4>
+                <p>${project.description}</p>
+                <div class="project-tech">
+                    ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
                 </div>
-            `;
+                ${project.highlights ? `
+                    <div style="margin: var(--spacing-md) 0;">
+                        <strong style="color: var(--text-primary);">Key Features:</strong>
+                        <ul style="margin-top: var(--spacing-xs); padding-left: var(--spacing-lg); color: var(--text-secondary);">
+                            ${project.highlights.map(h => `<li>${h}</li>`).join('')}
+                        </ul>
+                    </div>
+                ` : ''}
+                <div class="project-links">
+                    ${project.demo ? `
+                        <a href="${project.demo}" target="_blank" class="project-link">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                            Live Demo
+                        </a>
+                    ` : ''}
+                    <a href="${project.github}" target="_blank" class="project-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        `;
+
+        this.addBotMessage(projectHTML, true);
+    }
+
+    displayGitHubProjects(projects, text) {
+        if (text) {
+            this.addBotMessage(text);
         }
 
-        this.addMessage(html, 'bot');
+        projects.forEach(project => {
+            const projectHTML = `
+                <div class="project-card">
+                    <h4>${project.name}</h4>
+                    <p>${project.description}</p>
+                    ${project.language ? `
+                        <div class="project-tech">
+                            <span class="tech-tag">${project.language}</span>
+                            ${project.topics.slice(0, 3).map(topic => `<span class="tech-tag">${topic}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    <p style="font-size: 0.875rem; color: var(--text-tertiary); margin-top: var(--spacing-sm);">
+                        ⭐ ${project.stars} stars • 🍴 ${project.forks} forks • Updated: ${project.updatedAt}
+                    </p>
+                    <div class="project-links">
+                        ${project.homepage ? `
+                            <a href="${project.homepage}" target="_blank" class="project-link">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                                Live Demo
+                            </a>
+                        ` : ''}
+                        <a href="${project.url}" target="_blank" class="project-link">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            this.addBotMessage(projectHTML, true);
+        });
     }
 
-    showContact() {
-        const html = `
-            <p><strong>Let's connect!</strong></p>
-            <p>📧 <strong>Email:</strong><br><a href="mailto:${portfolioData.contact.email}" style="color: var(--accent-primary);">${portfolioData.contact.email}</a></p>
-            <p>💼 <strong>LinkedIn:</strong><br><a href="${portfolioData.contact.linkedin}" target="_blank" style="color: var(--accent-primary);">linkedin.com/in/noctuacoder</a></p>
-            <p>🌐 <strong>Portfolio:</strong><br><a href="${portfolioData.contact.portfolio}" target="_blank" style="color: var(--accent-primary);">View Full Portfolio</a></p>
-            <p style="margin-top: 12px; padding: 12px; background: rgba(0,255,255,0.1); border-radius: 8px; border-left: 3px solid var(--accent-primary);">
-                💡 <strong>${portfolioData.availability}</strong>
-            </p>
+    displaySkills() {
+        this.addBotMessage("Here are my technical skills:");
+
+        let skillsHTML = '<div style="margin-top: var(--spacing-md);">';
+
+        for (const [category, skills] of Object.entries(portfolioData.skills)) {
+            skillsHTML += `
+                <div style="margin-bottom: var(--spacing-lg);">
+                    <h4 style="text-transform: capitalize; margin-bottom: var(--spacing-sm); color: var(--primary-light);">
+                        ${category}
+                    </h4>
+            `;
+
+            for (const [skill, level] of Object.entries(skills)) {
+                skillsHTML += `
+                    <div style="margin-bottom: var(--spacing-sm);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                            <span style="color: var(--text-primary);">${skill}</span>
+                            <span style="color: var(--text-tertiary); font-size: 0.875rem;">${level}%</span>
+                        </div>
+                        <div style="height: 6px; background: var(--glass-bg); border-radius: 999px; overflow: hidden;">
+                            <div style="height: 100%; width: ${level}%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 999px; transition: width 1s ease;"></div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            skillsHTML += '</div>';
+        }
+
+        skillsHTML += '</div>';
+
+        this.addBotMessage(skillsHTML, true);
+    }
+
+    async displayGitHubStats() {
+        const stats = await githubAPI.getStats();
+
+        if (!stats) {
+            this.addBotMessage("Sorry, I couldn't fetch GitHub stats right now. Please try again later.");
+            return;
+        }
+
+        const statsHTML = `
+            <div style="margin-top: var(--spacing-md);">
+                <h4 style="margin-bottom: var(--spacing-md); color: var(--primary-light);">📊 GitHub Statistics</h4>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--spacing-sm); margin-bottom: var(--spacing-md);">
+                    <div style="background: var(--glass-bg); padding: var(--spacing-md); border-radius: var(--radius-md); border: 1px solid var(--glass-border); text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 600; color: var(--primary-light);">${stats.publicRepos}</div>
+                        <div style="font-size: 0.875rem; color: var(--text-tertiary);">Public Repos</div>
+                    </div>
+                    <div style="background: var(--glass-bg); padding: var(--spacing-md); border-radius: var(--radius-md); border: 1px solid var(--glass-border); text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 600; color: var(--secondary-light);">${stats.totalStars}</div>
+                        <div style="font-size: 0.875rem; color: var(--text-tertiary);">Total Stars</div>
+                    </div>
+                    <div style="background: var(--glass-bg); padding: var(--spacing-md); border-radius: var(--radius-md); border: 1px solid var(--glass-border); text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 600; color: var(--accent-light);">${stats.followers}</div>
+                        <div style="font-size: 0.875rem; color: var(--text-tertiary);">Followers</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: var(--spacing-md);">
+                    <strong style="color: var(--text-primary);">Top Languages:</strong>
+                    <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-xs); margin-top: var(--spacing-xs);">
+                        ${stats.topLanguages.map(lang => `<span class="tech-tag">${lang}</span>`).join('')}
+                    </div>
+                </div>
+                
+                ${stats.bio ? `
+                    <p style="margin-top: var(--spacing-md); color: var(--text-secondary); font-style: italic;">
+                        "${stats.bio}"
+                    </p>
+                ` : ''}
+                
+                <a href="https://github.com/NoctuaCoder" target="_blank" class="project-link" style="margin-top: var(--spacing-md); display: inline-flex;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                    Visit GitHub Profile
+                </a>
+            </div>
         `;
 
-        this.addMessage(html, 'bot');
+        this.addBotMessage(statsHTML, true);
     }
 
-    showGitHub() {
-        const html = `
-            <p><strong>GitHub Profile:</strong></p>
-            <p>🐙 <a href="${portfolioData.contact.github}" target="_blank" style="color: var(--accent-primary); font-weight: 600;">@NoctuaCoder</a></p>
-            <p>Check out the repositories:</p>
-            <ul style="margin-left: 20px; line-height: 1.8;">
-                <li>⭐ stellar-task-manager (React)</li>
-                <li>⭐ noctua-command-center (Dashboard)</li>
-                <li>⭐ matrix-owl (Terminal)</li>
-                <li>⭐ stellar-dots (Dotfiles)</li>
-            </ul>
-            <p style="margin-top: 12px;">
-                <a href="${portfolioData.contact.github}" target="_blank" class="project-link" style="display: inline-block; padding: 8px 16px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; text-decoration: none; color: var(--text-primary);">Visit GitHub →</a>
-            </p>
+    displayContact() {
+        const contactHTML = `
+            <div style="margin-top: var(--spacing-md);">
+                <h4 style="margin-bottom: var(--spacing-md); color: var(--primary-light);">📬 Get In Touch</h4>
+                
+                <p style="color: var(--text-secondary); margin-bottom: var(--spacing-lg);">
+                    ${portfolioData.availability}
+                </p>
+                
+                <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+                    <a href="mailto:${portfolioData.contact.email}" class="project-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        ${portfolioData.contact.email}
+                    </a>
+                    
+                    <a href="${portfolioData.contact.github}" target="_blank" class="project-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                        GitHub Profile
+                    </a>
+                    
+                    <a href="${portfolioData.contact.portfolio}" target="_blank" class="project-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Portfolio Website
+                    </a>
+                </div>
+            </div>
         `;
 
-        this.addMessage(html, 'bot');
+        this.addBotMessage(contactHTML, true);
     }
 
-    showTyping() {
-        this.typingIndicator.classList.remove('hidden');
-        this.scrollToBottom();
+    showSuggestions(suggestions) {
+        this.suggestionChips.innerHTML = '';
+        this.suggestionChips.style.display = 'flex';
+
+        suggestions.forEach(suggestion => {
+            const chip = document.createElement('button');
+            chip.className = 'suggestion-chip';
+            chip.textContent = suggestion;
+            chip.addEventListener('click', () => {
+                this.messageInput.value = suggestion;
+                this.handleSend();
+            });
+            this.suggestionChips.appendChild(chip);
+        });
     }
 
-    hideTyping() {
-        this.typingIndicator.classList.add('hidden');
+    toggleVoiceInput() {
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+            this.addBotMessage("Sorry, voice input is not supported in your browser. Please try Chrome or Edge.");
+            return;
+        }
+
+        if (this.isRecording) {
+            this.stopRecording();
+        } else {
+            this.startRecording();
+        }
+    }
+
+    startRecording() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        this.recognition = new SpeechRecognition();
+        this.recognition.lang = 'en-US';
+        this.recognition.continuous = false;
+
+        this.recognition.onstart = () => {
+            this.isRecording = true;
+            this.micBtn.classList.add('recording');
+        };
+
+        this.recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            this.messageInput.value = transcript;
+        };
+
+        this.recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            this.stopRecording();
+        };
+
+        this.recognition.onend = () => {
+            this.stopRecording();
+        };
+
+        this.recognition.start();
+    }
+
+    stopRecording() {
+        if (this.recognition) {
+            this.recognition.stop();
+        }
+        this.isRecording = false;
+        this.micBtn.classList.remove('recording');
+    }
+
+    showLoading() {
+        this.loadingIndicator.style.display = 'block';
+    }
+
+    hideLoading() {
+        this.loadingIndicator.style.display = 'none';
     }
 
     scrollToBottom() {
-        setTimeout(() => {
-            this.chatBody.scrollTop = this.chatBody.scrollHeight;
-        }, 100);
+        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
     }
 
-    toggleSound() {
-        const enabled = this.soundSystem.toggle();
-        this.soundToggle.innerHTML = enabled ?
-            `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#icon-gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>` :
-            `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#icon-gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
-        if (enabled) {
-            this.soundSystem.success();
-        }
-    }
-
-    toggleMinimize() {
-        this.chatWidget.classList.toggle('hidden');
-        this.chatToggle.classList.toggle('hidden');
-        this.soundSystem.click();
-    }
-
-    handleEasterEgg(message) {
-        const lower = message.toLowerCase();
-
-        // Owl animation
-        if (lower.includes('owl') || lower.includes('coruja')) {
-            this.triggerOwlAnimation();
-            this.addMessage('🦉 <strong>Hoot hoot!</strong> The owl awakens! ✨', 'bot');
-            this.soundSystem.notification();
-            return true;
-        }
-
-        // Color theme change
-        if (lower.startsWith('color ') || lower.startsWith('cor ')) {
-            const color = lower.split(' ')[1];
-            this.changeAccentColor(color);
-            return true;
-        }
-
-        // Time
-        if (lower.includes('time') || lower.includes('hora')) {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('pt-BR', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            this.addMessage(`🕐 Current time: <strong>${timeStr}</strong>`, 'bot');
-            return true;
-        }
-
-        return false;
-    }
-
-    triggerOwlAnimation() {
-        const avatar = document.querySelector('.bot-avatar');
-        avatar.style.animation = 'none';
-        setTimeout(() => {
-            avatar.style.animation = 'pulse 0.5s ease-in-out 3';
-        }, 10);
-    }
-
-    changeAccentColor(color) {
-        const colorMap = {
-            'blue': '#0066ff',
-            'azul': '#0066ff',
-            'purple': '#8b5cf6',
-            'roxo': '#8b5cf6',
-            'pink': '#ec4899',
-            'rosa': '#ec4899',
-            'green': '#10b981',
-            'verde': '#10b981',
-            'cyan': '#06b6d4',
-            'ciano': '#06b6d4'
-        };
-
-        if (colorMap[color]) {
-            document.documentElement.style.setProperty('--primary-blue', colorMap[color]);
-            this.addMessage(`✨ Accent color changed to <strong>${color}</strong>!`, 'bot');
-            this.soundSystem.success();
-        } else {
-            this.addMessage(`❌ Color "${color}" not found. Try: blue, purple, pink, green, cyan`, 'bot');
-        }
+    delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
 
-// Initialize chatbot when DOM is ready
+// Initialize chatbot when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new NoctuaBot();
+    window.chatbot = new PortfolioChatbot();
 });

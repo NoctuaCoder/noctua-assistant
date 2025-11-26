@@ -1,118 +1,294 @@
-// Response System - Intelligent keyword matching
-const responses = {
-    greetings: {
-        keywords: ['hi', 'hello', 'hey', 'oi', 'olá', 'ola'],
-        responses: [
-            "Hello! 👋 I'm NoctuaBot, Alana's portfolio assistant. How can I help you today?",
-            "Hi there! ✨ I can tell you about Alana's projects, skills, and experience. What would you like to know?"
-        ]
-    },
+/* ========================================
+   INTELLIGENT RESPONSE SYSTEM
+   Handles user messages and generates responses
+   ======================================== */
 
-    projects: {
-        keywords: ['project', 'projects', 'work', 'portfolio', 'show', 'projeto', 'projetos'],
-        action: 'showProjects'
-    },
-
-    skills: {
-        keywords: ['skill', 'skills', 'tech', 'technology', 'know', 'habilidade'],
-        action: 'showSkills'
-    },
-
-    contact: {
-        keywords: ['contact', 'email', 'reach', 'hire', 'contato', 'contratar'],
-        action: 'showContact'
-    },
-
-    github: {
-        keywords: ['github', 'git', 'repo', 'repository', 'code'],
-        action: 'showGitHub'
-    },
-
-    about: {
-        keywords: ['who', 'about', 'you', 'quem', 'sobre'],
-        responses: [
-            `I'm representing <strong>Alana (NoctuaCoder)</strong>, a ${portfolioData.role} from ${portfolioData.location}.<br><br>${portfolioData.bio}<br><br>Want to see her projects? 🚀`
-        ]
-    },
-
-    experience: {
-        keywords: ['experience', 'experiência', 'background', 'career'],
-        responses: [
-            "Alana specializes in <strong>Frontend Development</strong> and <strong>UI/UX Design</strong>, with expertise in:<br>• React & Modern JavaScript<br>• Glassmorphism & Modern CSS<br>• Interactive UIs & Animations<br>• Canvas API & Web APIs<br><br>Check out her projects to see these skills in action! 💼"
-        ]
-    },
-
-    availability: {
-        keywords: ['available', 'hire', 'work', 'job', 'disponível', 'vaga'],
-        responses: [
-            `Yes! Alana is currently <strong>${portfolioData.availability}</strong>.<br><br>Interested in working together? Let's connect! 📧`
-        ]
-    },
-
-    thanks: {
-        keywords: ['thank', 'thanks', 'obrigad', 'valeu'],
-        responses: [
-            "You're welcome! 😊 Anything else you'd like to know?",
-            "Happy to help! ✨ Feel free to ask more questions!"
-        ]
-    },
-
-    help: {
-        keywords: ['help', 'ajuda', 'command', 'what can'],
-        responses: [
-            "I can help you with:<br>• <strong>Projects</strong> - See Alana's work<br>• <strong>Skills</strong> - View technical expertise<br>• <strong>Contact</strong> - Get in touch<br>• <strong>GitHub</strong> - Check GitHub profile<br><br>🎮 <strong>Easter Eggs:</strong><br>• Type 'owl' or 'coruja'<br>• Type 'color [name]' to change theme<br>• Type 'time' or 'hora'<br>• Type 'joke' or 'quote'<br><br>Just ask me anything or use the quick action buttons! 💡"
-        ]
-    },
-
-    joke: {
-        keywords: ['joke', 'piada', 'funny'],
-        responses: [
-            "Why do programmers prefer dark mode? 🌙<br>Because light attracts bugs! 🐛😄",
-            "How many programmers does it take to change a light bulb? 💡<br>None, that's a hardware problem! 😂",
-            "Why do Java developers wear glasses? 👓<br>Because they can't C#! 🤓",
-            "A SQL query walks into a bar, walks up to two tables and asks... 🍺<br>'Can I join you?' 😄"
-        ]
-    },
-
-    quote: {
-        keywords: ['quote', 'inspire', 'motivation', 'frase'],
-        responses: [
-            "💫 <em>\"Code is like humor. When you have to explain it, it's bad.\"</em><br>- Cory House",
-            "✨ <em>\"First, solve the problem. Then, write the code.\"</em><br>- John Johnson",
-            "🌟 <em>\"The best error message is the one that never shows up.\"</em><br>- Thomas Fuchs",
-            "⭐ <em>\"Simplicity is the soul of efficiency.\"</em><br>- Austin Freeman",
-            "💎 <em>\"Make it work, make it right, make it fast.\"</em><br>- Kent Beck"
-        ]
-    },
-
-    default: {
-        responses: [
-            "Hmm, I'm not sure about that. Try asking about Alana's projects, skills, or experience! 🤔",
-            "Interesting question! I'm best at talking about Alana's portfolio. Want to see her projects? 🚀",
-            "I didn't quite understand that. Type 'help' to see what I can do! 💡"
-        ]
+class ResponseSystem {
+    constructor() {
+        this.patterns = this.initializePatterns();
+        this.suggestions = [
+            "What projects have you built?",
+            "What technologies do you use?",
+            "Show me your GitHub stats",
+            "How can I contact you?",
+            "Tell me about yourself"
+        ];
     }
-};
 
-function findResponse(message) {
-    const lowerMessage = message.toLowerCase();
+    initializePatterns() {
+        return {
+            // Greetings
+            greeting: {
+                patterns: [/^(hi|hello|hey|greetings|good\s*(morning|afternoon|evening))/i],
+                responses: [
+                    {
+                        text: `Hello! 👋 Welcome to my portfolio chatbot. I'm NoctuaCoder, a ${portfolioData.role}. ${portfolioData.tagline}\n\nI'd love to tell you about my projects, skills, and experience. What would you like to know?`,
+                        suggestions: [
+                            "Show me your projects",
+                            "What are your skills?",
+                            "View GitHub stats",
+                            "How can I contact you?"
+                        ]
+                    }
+                ]
+            },
 
-    for (const [category, data] of Object.entries(responses)) {
-        if (category === 'default') continue;
+            // About
+            about: {
+                patterns: [
+                    /about\s*(you|yourself)/i,
+                    /who\s*are\s*you/i,
+                    /tell\s*me\s*about/i,
+                    /introduce/i,
+                    /^\/about$/i
+                ],
+                responses: [
+                    {
+                        text: `# About Me\n\n${portfolioData.about.join('\n\n')}\n\n**Location:** ${portfolioData.location}\n**Status:** ${portfolioData.availability}`,
+                        suggestions: [
+                            "Show me your projects",
+                            "What technologies do you use?",
+                            "View GitHub stats"
+                        ]
+                    }
+                ]
+            },
 
-        if (data.keywords && data.keywords.some(keyword => lowerMessage.includes(keyword))) {
-            if (data.action) {
-                return { action: data.action };
+            // Projects
+            projects: {
+                patterns: [
+                    /projects?/i,
+                    /portfolio/i,
+                    /what\s*(have\s*you|did\s*you)\s*build/i,
+                    /show\s*me\s*(your\s*)?work/i,
+                    /^\/projects?$/i
+                ],
+                responses: [
+                    {
+                        type: 'projects',
+                        text: "Here are my featured projects:",
+                        suggestions: [
+                            "Tell me more about Stellar Task Manager",
+                            "Show GitHub stats",
+                            "What technologies do you use?"
+                        ]
+                    }
+                ]
+            },
+
+            // Specific Project
+            projectDetail: {
+                patterns: [
+                    /tell\s*me\s*(more\s*)?about\s*(.+)/i,
+                    /details?\s*(about|on)\s*(.+)/i,
+                    /what\s*is\s*(.+)/i
+                ],
+                handler: async (match) => {
+                    const projectName = match[match.length - 1].toLowerCase();
+
+                    // Check in portfolio data first
+                    const localProject = portfolioData.projects.find(p =>
+                        p.name.toLowerCase().includes(projectName)
+                    );
+
+                    if (localProject) {
+                        return {
+                            type: 'project-detail',
+                            project: localProject,
+                            suggestions: [
+                                "Show me more projects",
+                                "What technologies do you use?",
+                                "How can I contact you?"
+                            ]
+                        };
+                    }
+
+                    // Try GitHub API
+                    const githubProject = await githubAPI.searchRepos(projectName);
+                    if (githubProject && githubProject.length > 0) {
+                        return {
+                            type: 'github-projects',
+                            projects: githubProject.slice(0, 3),
+                            text: `I found these projects matching "${projectName}":`,
+                            suggestions: [
+                                "Show all projects",
+                                "View GitHub stats"
+                            ]
+                        };
+                    }
+
+                    return null;
+                }
+            },
+
+            // Skills
+            skills: {
+                patterns: [
+                    /skills?/i,
+                    /technologies/i,
+                    /tech\s*stack/i,
+                    /what\s*(do\s*you|can\s*you)\s*(know|use)/i,
+                    /languages?/i,
+                    /^\/skills?$/i
+                ],
+                responses: [
+                    {
+                        type: 'skills',
+                        text: "Here are my technical skills:",
+                        suggestions: [
+                            "Show me your projects",
+                            "View GitHub stats",
+                            "How can I contact you?"
+                        ]
+                    }
+                ]
+            },
+
+            // GitHub Stats
+            github: {
+                patterns: [
+                    /github\s*stats?/i,
+                    /git\s*hub/i,
+                    /repositories/i,
+                    /repos?/i,
+                    /contributions?/i,
+                    /^\/github$/i
+                ],
+                responses: [
+                    {
+                        type: 'github-stats',
+                        text: "Fetching my GitHub statistics...",
+                        suggestions: [
+                            "Show me your projects",
+                            "What are your skills?",
+                            "How can I contact you?"
+                        ]
+                    }
+                ]
+            },
+
+            // Contact
+            contact: {
+                patterns: [
+                    /contact/i,
+                    /email/i,
+                    /reach\s*(out|you)/i,
+                    /get\s*in\s*touch/i,
+                    /hire/i,
+                    /^\/contact$/i
+                ],
+                responses: [
+                    {
+                        type: 'contact',
+                        text: "I'd love to hear from you! Here's how you can reach me:",
+                        suggestions: [
+                            "Show me your projects",
+                            "What are your skills?",
+                            "Download CV"
+                        ]
+                    }
+                ]
+            },
+
+            // Help
+            help: {
+                patterns: [
+                    /^help$/i,
+                    /^\/help$/i,
+                    /what\s*can\s*(you|i)/i,
+                    /commands?/i
+                ],
+                responses: [
+                    {
+                        text: `# How to Use This Chatbot\n\nYou can ask me questions naturally or use these commands:\n\n**Commands:**\n• \`/about\` - Learn about me\n• \`/projects\` - View my projects\n• \`/skills\` - See my technical skills\n• \`/github\` - View GitHub statistics\n• \`/contact\` - Get contact information\n• \`/help\` - Show this help message\n\n**Try asking:**\n• "What projects have you built?"\n• "What technologies do you use?"\n• "Tell me about [project name]"\n• "How can I contact you?"`,
+                        suggestions: [
+                            "Show me your projects",
+                            "What are your skills?",
+                            "View GitHub stats"
+                        ]
+                    }
+                ]
+            },
+
+            // Easter Eggs
+            owl: {
+                patterns: [/owl/i, /🦉/],
+                responses: [
+                    {
+                        text: `🦉 Hoot hoot! You found the owl!\n\n     /\\_/\\\n    (o.o)\n     > ^ <\n\nNoctua means "owl" in Latin. It represents wisdom, night coding sessions, and my love for celestial themes! ✨`,
+                        suggestions: [
+                            "Show me your projects",
+                            "What are your skills?"
+                        ]
+                    }
+                ]
+            },
+
+            // Thanks
+            thanks: {
+                patterns: [/thank(s| you)/i, /appreciate/i],
+                responses: [
+                    {
+                        text: "You're welcome! Feel free to ask me anything else about my work or experience. 😊",
+                        suggestions: [
+                            "Show me your projects",
+                            "View GitHub stats",
+                            "How can I contact you?"
+                        ]
+                    }
+                ]
             }
-            if (data.responses) {
-                return {
-                    text: data.responses[Math.floor(Math.random() * data.responses.length)]
-                };
+        };
+    }
+
+    async generateResponse(userMessage) {
+        const message = userMessage.trim();
+
+        // Check all patterns
+        for (const [key, pattern] of Object.entries(this.patterns)) {
+            // Check if pattern has a custom handler
+            if (pattern.handler) {
+                for (const regex of pattern.patterns) {
+                    const match = message.match(regex);
+                    if (match) {
+                        const result = await pattern.handler(match);
+                        if (result) return result;
+                    }
+                }
+            }
+            // Check regular patterns
+            else {
+                for (const regex of pattern.patterns) {
+                    if (regex.test(message)) {
+                        const response = pattern.responses[
+                            Math.floor(Math.random() * pattern.responses.length)
+                        ];
+                        return response;
+                    }
+                }
             }
         }
+
+        // Default response
+        return {
+            text: `I'm not sure how to respond to that. Try asking me about:\n\n• My projects and work\n• Technical skills and technologies\n• GitHub statistics\n• How to contact me\n\nOr type \`/help\` to see all available commands.`,
+            suggestions: [
+                "Show me your projects",
+                "What are your skills?",
+                "View GitHub stats",
+                "How can I contact you?"
+            ]
+        };
     }
 
-    return {
-        text: responses.default.responses[Math.floor(Math.random() * responses.default.responses.length)]
-    };
+    getRandomSuggestions(count = 3) {
+        const shuffled = [...this.suggestions].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
+    }
 }
+
+// Initialize response system
+const responseSystem = new ResponseSystem();
+
+// Export for use in other scripts
+window.responseSystem = responseSystem;

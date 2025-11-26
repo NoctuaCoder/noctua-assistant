@@ -1,354 +1,202 @@
-# 🤖 Noctua Assistant
+# NoctuaCoder - Portfolio Chatbot 🌟
 
-<div align="center">
+A premium, interactive portfolio chatbot showcasing projects and skills with live GitHub integration. Built with vanilla JavaScript, featuring a stunning celestial theme with glassmorphism effects, particle animations, and intelligent conversation system.
 
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-00FFFF?style=for-the-badge&logo=javascript&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-BD00FF?style=for-the-badge)
-
-**An interactive portfolio chatbot with AI-like responses, glassmorphism UI, and celestial aesthetics**
-
-[Live Demo](#) • [Features](#-features) • [Quick Start](#-quick-start)
-
-</div>
-
-<br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/>
-
-## 🌟 Overview
-
-**Noctua Assistant** is an intelligent portfolio chatbot that provides an engaging, interactive way for visitors to explore projects, skills, and experience. Built with vanilla JavaScript and featuring a stunning glassmorphism design with the signature Noctua celestial theme.
+![Portfolio Chatbot](https://img.shields.io/badge/Status-Live-success)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow)
+![CSS3](https://img.shields.io/badge/CSS3-Glassmorphism-blue)
+![GitHub API](https://img.shields.io/badge/GitHub-API-black)
 
 ## ✨ Features
 
-### 🎨 **Beautiful UI/UX**
-- **Glassmorphism Design** - Frosted glass effects with backdrop blur
-- **Particle Background** - Animated constellation connections
-- **Smooth Animations** - Typing indicators, fade-ins, and transitions
-- **Theme Toggle** - Dark/Light mode support
-- **Fully Responsive** - Works perfectly on all devices
+### 🎨 Premium Design
+- **Celestial Theme**: Purple/pink gradient color scheme with dark space background
+- **Glassmorphism UI**: Modern glass-effect cards and panels with backdrop blur
+- **Custom Cursor**: Interactive glowing cursor with particle trail
+- **Particle Background**: Animated constellation particles that react to mouse movement
+- **Smooth Animations**: Micro-animations for all interactions and transitions
 
-### 🧠 **Intelligent Responses**
-- **Keyword Matching** - Understands natural language queries
-- **Multi-language Support** - Responds in both English and Portuguese
-- **Context Awareness** - Provides relevant information based on questions
-- **Quick Actions** - One-click buttons for common queries
+### 💬 Intelligent Chatbot
+- **Natural Language Processing**: Understands questions and commands naturally
+- **Pattern Matching**: Smart keyword detection for relevant responses
+- **Command System**: Special commands like `/projects`, `/skills`, `/github`, `/contact`
+- **Suggestion Chips**: Dynamic suggestions based on conversation context
+- **Voice Input**: Speech recognition support (Chrome/Edge)
 
-### 💼 **Portfolio Showcase**
-- **Project Cards** - Interactive cards with demos and GitHub links
-- **Skills Display** - Visual progress bars showing expertise levels
-- **GitHub Integration** - Direct links to repositories
-- **Contact Information** - Easy access to email, LinkedIn, and portfolio
+### 🔗 GitHub Integration
+- **Live Repository Data**: Fetches real-time data from GitHub API
+- **Project Showcase**: Displays repositories with descriptions, technologies, and links
+- **GitHub Statistics**: Shows repos, stars, followers, and top languages
+- **Smart Caching**: Reduces API calls with intelligent caching system
 
-### 🚀 **Technical Highlights**
-- **Pure Vanilla JS** - No frameworks, lightweight and fast
-- **Modular Architecture** - Clean, maintainable code structure
-- **Canvas API** - Particle system for background effects
-- **CSS Custom Properties** - Easy theme customization
-
-## 🎯 What Makes It Special
-
-Unlike traditional CV chatbots, Noctua Assistant offers:
-
-| Feature | Traditional CV Bot | Noctua Assistant |
-|<br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/><br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/><br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/>|<br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/><br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/><br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/><br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/><br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/><br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/>-|<br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/><br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/><br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/><br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/><br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/><br/>
-
-<div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/>|
-| **Visual Design** | ❌ Plain text | ✅ Glassmorphism UI |
-| **Interactivity** | ❌ Static | ✅ Animated & responsive |
-| **Project Demos** | ❌ Links only | ✅ Interactive cards |
-| **Personality** | ❌ Generic | ✅ Unique Noctua theme |
-| **Mobile** | ❌ Limited | ✅ Fully responsive |
-| **Background** | ❌ Solid color | ✅ Particle effects |
+### 📱 Responsive Design
+- **Mobile-First**: Optimized for all screen sizes
+- **Touch-Friendly**: Large tap targets and smooth interactions
+- **Adaptive Layout**: Sidebar collapses on mobile devices
+- **Cross-Browser**: Works on Chrome, Firefox, Safari, and Edge
 
 ## 🚀 Quick Start
 
-### Option 1: Open Directly
-Simply open `index.html` in your browser. No build step required!
+### Local Development
 
-### Option 2: Local Server
-```bash
-# Using Python
-python -m http.server 8000
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/NoctuaCoder/noctua-assistant.git
+   cd noctua-assistant
+   ```
 
-# Using Node.js
-npx serve
+2. **Start a local server**
+   ```bash
+   # Using Python 3
+   python3 -m http.server 8080
+   
+   # Or using Node.js
+   npx http-server -p 8080
+   ```
 
-# Then open http://localhost:8000
+3. **Open in browser**
+   ```
+   http://localhost:8080
+   ```
+
+### Customization
+
+Edit `js/portfolio-data.js` to customize your portfolio information:
+
+```javascript
+const portfolioData = {
+    name: "Your Name",
+    role: "Your Role",
+    bio: "Your bio...",
+    projects: [
+        // Your projects
+    ],
+    skills: {
+        // Your skills
+    },
+    contact: {
+        // Your contact info
+    }
+};
+```
+
+Update the GitHub username in `js/github-api.js`:
+
+```javascript
+const githubAPI = new GitHubAPI('YourGitHubUsername');
 ```
 
 ## 📁 Project Structure
 
 ```
 noctua-assistant/
-├── index.html              # Main HTML file
+├── index.html              # Main HTML structure
 ├── css/
-│   └── chatbot.css        # All styles (glassmorphism theme)
+│   └── portfolio.css       # Premium celestial theme styles
 ├── js/
 │   ├── chatbot.js         # Main chatbot logic
-│   ├── responses.js       # Response system
-│   ├── portfolio-data.js  # Portfolio information
-│   └── particles.js       # Particle background
-└── README.md
+│   ├── github-api.js      # GitHub API integration
+│   ├── responses.js       # Intelligent response system
+│   ├── portfolio-data.js  # Your portfolio information
+│   └── particles.js       # Particle background effects
+└── README.md              # This file
 ```
 
-## 💬 Example Interactions
+## 🎯 Usage
 
-**User:** "Show me your projects"
-**Bot:** *Displays interactive project cards with demos and GitHub links*
+### Quick Actions
+Click on any quick action chip to instantly get information:
+- **View Projects** - See all your projects
+- **My Skills** - Display technical skills
+- **GitHub Stats** - Show GitHub statistics
+- **Contact Me** - Get contact information
 
-**User:** "What are your skills?"
-**Bot:** *Shows skills with visual progress bars*
+### Commands
+Type these commands for specific actions:
+- `/about` - Learn about you
+- `/projects` - View all projects
+- `/skills` - See technical skills
+- `/github` - Display GitHub stats
+- `/contact` - Get contact information
+- `/help` - Show help message
 
-**User:** "How can I contact you?"
-**Bot:** *Provides email, LinkedIn, and portfolio links*
+### Natural Questions
+Ask questions naturally:
+- "What projects have you built?"
+- "What technologies do you use?"
+- "Tell me about [project name]"
+- "How can I contact you?"
+- "Show me your GitHub stats"
 
-## 🎨 Customization
-
-### Update Portfolio Data
-Edit `js/portfolio-data.js` to customize:
-- Personal information
-- Projects
-- Skills
-- Contact details
-
-### Change Theme Colors
-Modify CSS custom properties in `css/chatbot.css`:
-```css
-:root {
-    --accent-primary: #00FFFF;    /* Primary accent color */
-    --accent-secondary: #00BFFF;  /* Secondary accent */
-    --accent-purple: #BD00FF;     /* Purple accent */
-}
-```
-
-### Add New Responses
-Extend the response system in `js/responses.js`:
-```javascript
-responses.newCategory = {
-    keywords: ['keyword1', 'keyword2'],
-    responses: ['Response text here']
-};
-```
-
-## 🌐 Deployment
-
-### GitHub Pages
-1. Push to GitHub
-2. Go to Settings > Pages
-3. Select `main` branch and `/ (root)` folder
-4. Save and wait for deployment
-5. Access at: `https://yourusername.github.io/noctua-assistant/`
-
-### Netlify/Vercel
-Simply drag and drop the project folder to deploy instantly!
-
-## 💡 Use Cases
-
-Perfect for:
-- **Portfolio Websites** - Interactive way to showcase work
-- **Personal Branding** - Unique, memorable experience
-- **Job Applications** - Stand out from traditional CVs
-- **Networking** - Engaging conversation starter
+### Easter Eggs
+Try typing "owl" or "🦉" for a surprise! 🦉
 
 ## 🛠️ Technologies Used
 
 - **HTML5** - Semantic structure
-- **CSS3** - Glassmorphism, animations, custom properties
-- **JavaScript (ES6+)** - Classes, modules, async/await
-- **Canvas API** - Particle background effects
+- **CSS3** - Glassmorphism, gradients, animations
+- **JavaScript (ES6+)** - Modern vanilla JS
+- **GitHub API** - Live repository data
+- **Canvas API** - Particle animations
+- **Web Speech API** - Voice input (optional)
+- **Google Fonts** - Inter, Space Grotesk, Fira Code
 
-## 📊 Browser Support
+## 🎨 Design System
 
-- ✅ Chrome/Edge (latest)
-- ✅ Firefox (latest)
-- ✅ Safari (latest)
-- ✅ Mobile browsers
+### Colors
+```css
+--primary: #9333ea      /* Purple */
+--secondary: #ec4899    /* Pink */
+--accent: #3b82f6       /* Blue */
+--bg-primary: #0a0a0f   /* Dark space */
+--glass-bg: rgba(255, 255, 255, 0.05)
+```
+
+### Typography
+- **Headings**: Space Grotesk (geometric, modern)
+- **Body**: Inter (clean, readable)
+- **Code**: Fira Code (monospace with ligatures)
+
+## 📊 GitHub API
+
+The chatbot uses GitHub's REST API to fetch:
+- User profile information
+- Public repositories
+- Repository statistics (stars, forks)
+- Programming languages
+- Topics and tags
+
+**Rate Limits**: 60 requests/hour (unauthenticated)  
+**Caching**: 5-minute cache to reduce API calls
+
+## 🌐 Browser Support
+
+- ✅ Chrome/Edge (Chromium) - Full support
+- ✅ Firefox - Full support
+- ✅ Safari - Full support (no voice input)
+- ⚠️ IE11 - Not supported
 
 ## 📝 License
 
 MIT License - feel free to use this project for your own portfolio!
 
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
 ## 👤 Author
 
-**Alana (NoctuaCoder)**
+**NoctuaCoder**
 - GitHub: [@NoctuaCoder](https://github.com/NoctuaCoder)
 - Portfolio: [noctuacoder.github.io](https://noctuacoder.github.io/NoctuaCoder/portfolio.html)
 
-<br/>
+## ⭐ Show Your Support
+
+Give a ⭐️ if you like this project!
+
+---
 
 <div align="center">
-<pre style="color: #00BFFF; font-size: 8px; line-height: 1.2; opacity: 0.6;">
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-      ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·
-    ✦       ✦       ✦       ✦       ✦       ✦       ✦
-</pre>
-</div>
-
-<br/>
-
-<div align="center">
-
-Made with 💜 and ✨ by NoctuaCoder
-
-**[⬆ back to top](#-noctua-assistant)**
-
+  <p>Made with 💜 and ✨ by NoctuaCoder</p>
+  <p><em>Converting starlight into source code</em></p>
 </div>
